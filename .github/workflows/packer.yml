@@ -1,11 +1,12 @@
 name: Packer
 
 on:
-
+  
   push:
     branches: [main]
   pull_request:
       branches: [main]
+
   workflow_dispatch:
 
 jobs:
@@ -23,6 +24,10 @@ jobs:
       - name: Install Packer
         run: sudo apt-get update && sudo apt-get install -y packer
 
+      - name: Packer Init
+        run: "packer init ./ami1.pkr.hcl"
+      - name: Packer Build - Branches
+        run: "packer validate ./ami1.pkr.hcl"
       - name: Packer Build - Branches
         #if: github.event.pull_request.merged == true
         run: "packer build ./ami-jenkins.pkr.hcl"
