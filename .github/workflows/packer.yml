@@ -23,18 +23,18 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Packer
         run: sudo apt-get update && sudo apt-get install -y packer
-
-      - name: Packer Init
-        run: "packer init ./ami1.pkr.hcl"
-      - name: Packer Build - Branches
-        run: "packer validate ./ami1.pkr.hcl"
-      - name: Packer Build - Branches
-        #if: github.event.pull_request.merged == true
-        run: "packer build ./ami-jenkins.pkr.hcl"
-        
       - name: Set AWS Demo credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
           aws-region: us-east-1
+      - name: Packer Init
+        run: "packer init ./ami-jenkins.pkr.hcl"
+      - name: Packer Build - Branches
+        run: "packer validate ./ami-jenkins.pkr.hcl"
+      - name: Packer Build - Branches
+        #if: github.event.pull_request.merged == true
+        run: "packer build ./ami-jenkins.pkr.hcl"
+        
+
