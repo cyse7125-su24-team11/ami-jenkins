@@ -1,0 +1,31 @@
+name: Packer Build
+
+on:
+  
+  push:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  packer-build:
+    name: Packer Build
+    runs-on: ubuntu-latest
+
+    steps:
+          
+      - uses: actions/checkout@v3
+      - name: Install Packer
+        run: sudo apt-get update && sudo apt-get install -y packer
+      - name: Set AWS Demo credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Packer Init
+        run: "packer init ./ami-jenkins.pkr.hcl"
+      - name: Packer Build
+        #if: github.event.pull_request.merged == true
+        run: "packer build ./ami-jenkins.pkr.hcl"
+        
