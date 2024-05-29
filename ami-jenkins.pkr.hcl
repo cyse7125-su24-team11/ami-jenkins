@@ -55,8 +55,7 @@ source "amazon-ebs" "my-ami" {
 build {
   sources = ["source.amazon-ebs.my-ami"]
 
-
-  provisioner "shell" {
+provisioner "shell" {
     environment_vars = [
       "DEBIAN_FRONTEND=noninteractive",
       "CHECKPOINT_DISABLE=1"
@@ -65,13 +64,18 @@ build {
     pause_before = "5s"
   }
 
-
-  provisioner "file" {
-    
+provisioner "file" {
     source = "./caddyconfig/Caddyfile"
-    destination = "/etc/caddy/Caddyfile"
-
+    destination = "/tmp/Caddyfile"
   }
+
+provisioner "shell" {
+    inline = [
+      "sudo cp /tmp/Caddyfile /etc/caddy/Caddyfile",
+      "rm /tmp/Caddyfile"
+    ]
+  }
+
 
 
 }
