@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "aws_region" {
   type    = string
   default = "us-east-1"
@@ -17,33 +26,15 @@ variable "subnet_id" {
 }
 
 
-packer {
-  required_plugins {
-    amazon = {
-      source  = "github.com/hashicorp/amazon"
-      version = "~> 1"
-    }
-  }
-}
-
 # https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "my-ami" {
   region          = "us-east-1"
   ami_name        = "csye7125_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  ami_description = "AMI for CSYE 6225"
+  ami_description = "AMI for Jenkins CSYE 7125"
   ami_regions = [
     "us-east-1",
   ]
 
-  // ssh_handshake_attempts = 200
-  // security_group_id      = "sg-0044673801fbe3579"
-  // ssh_keypair_name       = "ec2ssh"
-  // ssh_private_key_file   = "/home/mahesh/.ssh/packer-ssh.pem"
-
-  // aws_polling {
-  //   delay_seconds = 120
-  //   max_attempts  = 50
-  // }
 
   associate_public_ip_address = true
   instance_type               = "t2.micro"
@@ -72,6 +63,14 @@ build {
     ]
     script       = "./install-jenkins.sh"
     pause_before = "5s"
+  }
+
+
+  provisioner "file" {
+    
+    source = "./caddyconfig/Caddyfile"
+    destination = "/etc/caddy/Caddyfile"
+
   }
 
 

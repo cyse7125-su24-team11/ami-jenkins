@@ -1,0 +1,3 @@
+jenkins.anibahscsye6225.me {
+	reverse_proxy localhost:8080
+}
