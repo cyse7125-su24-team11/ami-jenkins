@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "aws_region" {
   type    = string
   default = "us-east-1"
@@ -16,15 +25,6 @@ variable "subnet_id" {
   default = "subnet-0ae4dd4c6b2e5a38d"
 }
 
-
-packer {
-  required_plugins {
-    amazon = {
-      source  = "github.com/hashicorp/amazon"
-      version = "~> 1"
-    }
-  }
-}
 
 # https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "my-ami" {
@@ -67,8 +67,10 @@ build {
 
 
   provisioner "file" {
-    source = "./Caddyfile"
+    
+    source = "./caddyconfig/Caddyfile"
     destination = "/etc/caddy/Caddyfile"
+
   }
 
 
