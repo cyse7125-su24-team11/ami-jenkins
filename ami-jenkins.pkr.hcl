@@ -71,7 +71,7 @@ provisioner "file" {
 
 provisioner "shell" {
     inline = [
-      "sudo cp /tmp/Caddyfile /etc/caddy/Caddyfile"
+      "sudo cp /tmp/Caddyfile /etc/caddy/Caddyfile",
       "rm /tmp/Caddyfile"
     ]
   }
