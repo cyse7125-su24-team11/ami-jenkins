@@ -1,0 +1,25 @@
+name: Packer
+
+on:
+  
+  pull_request:
+      branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  packer-validate:
+    name: Packer Validate
+    runs-on: ubuntu-latest
+
+    steps:
+          
+      - uses: actions/checkout@v3
+      - name: Install Packer
+        run: sudo apt-get update && sudo apt-get install -y packer
+      - name: Packer Init
+        run: "packer init ./ami-jenkins.pkr.hcl"
+      - name: Packer Validate
+        run: "packer validate ./ami-jenkins.pkr.hcl"
+        
+
