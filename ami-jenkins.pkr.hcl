@@ -55,6 +55,19 @@ source "amazon-ebs" "my-ami" {
 build {
   sources = ["source.amazon-ebs.my-ami"]
 
+
+
+provisioner "file" {
+    source = "./caddyconfig/Caddyfile"
+    destination = "/tmp/Caddyfile"
+  }
+
+provisioner "file" {
+    source = "./caddyconfig/caddy.service"
+    destination = "/tmp/caddy.service"
+  }
+
+
 provisioner "shell" {
     environment_vars = [
       "DEBIAN_FRONTEND=noninteractive",
@@ -63,19 +76,6 @@ provisioner "shell" {
     script       = "./install-jenkins.sh"
     pause_before = "5s"
   }
-
-provisioner "file" {
-    source = "./caddyconfig/Caddyfile"
-    destination = "/tmp/Caddyfile"
-  }
-
-provisioner "shell" {
-    inline = [
-      "sudo cp /tmp/Caddyfile /etc/caddy/Caddyfile",
-      "rm /tmp/Caddyfile"
-    ]
-  }
-
 
 
 }
