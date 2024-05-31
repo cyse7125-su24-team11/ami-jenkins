@@ -20,7 +20,7 @@ sudo systemctl enable jenkins
 # Install caddy
 
 wget https://github.com/caddyserver/caddy/releases/download/v2.7.6/caddy_2.7.6_linux_amd64.tar.gz -P /tmp
-tar -xvzf /tmp/caddy_2.7.6_linux_amd64.tar.gz -C /usr/bin
+sudo tar -xvzf /tmp/caddy_2.7.6_linux_amd64.tar.gz -C /usr/bin
 sudo groupadd --system caddy
 sudo useradd --system \
     --gid caddy \
