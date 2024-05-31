@@ -30,6 +30,7 @@ sudo useradd --system \
     --comment "Caddy web server" \
     caddy
 
+sudo mkdir -p /etc/caddy
 sudo cp /tmp/Caddyfile /etc/caddy/Caddyfile
 rm /tmp/Caddyfile
 sudo cp /tmp/caddy.service /etc/systemd/system/caddy.service
