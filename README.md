@@ -1,6 +1,6 @@
 # PACKER BUILD
 
-### Prerequisites for building and deploying:
+###   Prerequisites for building and deploying:
 
 - Packer
 - Git bash
