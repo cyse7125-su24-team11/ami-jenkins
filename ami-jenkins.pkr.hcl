@@ -1,11 +1,4 @@
-packer {
-  required_plugins {
-    amazon = {
-      source  = "github.com/hashicorp/amazon"
-      version = "~> 1"
-    }
-  }
-}
+
 
 variable "aws_region" {
   type    = string
