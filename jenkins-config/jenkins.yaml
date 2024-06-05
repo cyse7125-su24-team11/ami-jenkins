@@ -112,6 +112,21 @@ tool:
     globalSettingsProvider: "standard"
     settingsProvider: "standard"
 jobs:
-  - providedEnv:
-      SUPERHERO: 'Midnighter'
-  - file: ./plugins/job-dsl/testjob.groovy
+  - file: ./plugins/job-dsl/job.groovy
+
+
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - file:
+        scope: GLOBAL
+        string:
+        id: "GH_CRED"
+        fileName: "/tmp/gitcred.txt"
+
+      - file:
+        id: "DOCKER_CRED"
+        string:
+        fileName: "/tmp/dockercred.txt"
+        scope: GLOBAL

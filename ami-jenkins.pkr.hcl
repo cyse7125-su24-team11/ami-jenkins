@@ -73,18 +73,28 @@ provisioner "file" {
   }
 
 provisioner "file" {
-    source = "./jenkins.yaml"
+    source = "./jenkins-config/jenkins.yaml"
     destination = "/tmp/jenkins.yaml"
   }
  
 provisioner "file" {
-    source = "./job.groovy"
+    source = "./jenkins-config/job.groovy"
     destination = "/tmp/job.groovy"
   }
  
 provisioner "file" {
-    source = "./Jenkinsfile"
+    source = "./jenkins-config/Jenkinsfile"
     destination = "/tmp/Jenkinsfile"
+  }
+
+provisioner "file" {
+    source = "./jenkins-config/gitcred.txt"
+    destination = "/tmp/gitcred.txt"
+  }
+
+provisioner "file" {
+    source = "./jenkins-config/dockercred.txt"
+    destination = "/tmp/dockercred.txt"
   }
 
 provisioner "shell" {

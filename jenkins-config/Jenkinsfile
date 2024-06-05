@@ -3,6 +3,10 @@ pipeline {
         dockerfile{
                     'build-agent.Dockerfile'
                 }
+                environment{
+                    myuser="maheshpoojaryneu"
+                    docker_password = credentials('DOCKER_CRED')
+                }
             }
     stages {
         stage('Docker') {
@@ -20,8 +24,7 @@ pipeline {
                     {
                         throw e
                     }
-                }
-               
+               }
             }
         }
     }
