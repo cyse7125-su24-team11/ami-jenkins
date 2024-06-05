@@ -48,23 +48,23 @@ sudo useradd --system \
     caddy
 
 sudo mkdir -p /etc/caddy
-sudo cp /tmp/Caddyfile /etc/caddy/Caddyfile
-rm /tmp/Caddyfile
+sudo cp /tmp/caddyconfig/Caddyfile /etc/caddy/Caddyfile
+rm /tmp/caddyconfig/Caddyfile
 
-sudo cp /tmp/caddy.service /etc/systemd/system/caddy.service
-rm /tmp/caddy.service
+sudo cp /tmp/caddyconfig/caddy.service /etc/systemd/system/caddy.service
+rm /tmp/caddyconfig/caddy.service
 
-sudo cp /tmp/jenkins.yaml /var/lib/jenkins/jenkins.yaml
-rm /tmp/jenkins.yaml
+sudo cp /tmp/jenkins-config/jenkins-config/jenkins.yaml /var/lib/jenkins/jenkins.yaml
+rm /tmp/jenkins-config/jenkins.yaml
 
-sudo cp /tmp/jenkins.service /etc/systemd/system/jenkins.service
-rm /tmp/jenkins.service
+sudo cp /tmp/jenkins-config/jenkins.service /etc/systemd/system/jenkins.service
+rm /tmp/jenkins-config/jenkins.service
 
-sudo cp /tmp/job.groovy /var/lib/jenkins/plugins/job-dsl/job.groovy
-rm /tmp/job.groovy
+sudo cp /tmp/jenkins-config/job.groovy /var/lib/jenkins/plugins/job-dsl/job.groovy
+rm /tmp/jenkins-config/job.groovy
 
-sudo cp /tmp/Jenkinsfile /var/lib/jenkins/plugins/job-dsl/Jenkinsfile
-rm /tmp/Jenkinsfile
+sudo cp /tmp/jenkins-config/Jenkinsfile /var/lib/jenkins/plugins/job-dsl/Jenkinsfile
+rm /tmp/jenkins-config/Jenkinsfile
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now caddy

@@ -58,44 +58,16 @@ build {
 
 
 provisioner "file" {
-    source = "./caddyconfig/Caddyfile"
-    destination = "/tmp/Caddyfile"
+    source = "./caddyconfig"
+    destination = "/tmp"
   }
 
 provisioner "file" {
-    source = "./caddyconfig/caddy.service"
-    destination = "/tmp/caddy.service"
+    source = "./jenkins-config"
+    destination = "/tmp"
   }
 
-provisioner "file" {
-    source = "./caddyconfig/jenkins.service"
-    destination = "/tmp/jenkins.service"
-  }
 
-provisioner "file" {
-    source = "./jenkins-config/jenkins.yaml"
-    destination = "/tmp/jenkins.yaml"
-  }
- 
-provisioner "file" {
-    source = "./jenkins-config/job.groovy"
-    destination = "/tmp/job.groovy"
-  }
- 
-provisioner "file" {
-    source = "./jenkins-config/Jenkinsfile"
-    destination = "/tmp/Jenkinsfile"
-  }
-
-provisioner "file" {
-    source = "./jenkins-config/gitcred.txt"
-    destination = "/tmp/gitcred.txt"
-  }
-
-provisioner "file" {
-    source = "./jenkins-config/dockercred.txt"
-    destination = "/tmp/dockercred.txt"
-  }
 
 provisioner "shell" {
     environment_vars = [
