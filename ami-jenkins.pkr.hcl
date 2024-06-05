@@ -67,6 +67,25 @@ provisioner "file" {
     destination = "/tmp/caddy.service"
   }
 
+provisioner "file" {
+    source = "./caddyconfig/jenkins.service"
+    destination = "/tmp/jenkins.service"
+  }
+
+provisioner "file" {
+    source = "./jenkins.yaml"
+    destination = "/tmp/jenkins.yaml"
+  }
+ 
+provisioner "file" {
+    source = "./job.groovy"
+    destination = "/tmp/job.groovy"
+  }
+ 
+provisioner "file" {
+    source = "./Jenkinsfile"
+    destination = "/tmp/Jenkinsfile"
+  }
 
 provisioner "shell" {
     environment_vars = [

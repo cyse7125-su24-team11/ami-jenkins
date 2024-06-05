@@ -1,0 +1,28 @@
+pipeline {
+    agent {
+        dockerfile{
+                    'build-agent.Dockerfile'
+                }
+            }
+    stages {
+        stage('Docker') {
+            steps {
+                script{
+                    try{
+                        sh '''
+                        docker login --username ${myuser} --password ${docker_password}
+                        docker build -f Dockerfile -t webapp:latest .
+                        docker tag webapp:latest maheshpoojaryneu/csye7125:webapp
+                        docker push maheshpoojaryneu/csye7125:webapp
+                        '''
+                    }
+                    catch(Exception e)
+                    {
+                        throw e
+                    }
+                }
+               
+            }
+        }
+    }
+}
