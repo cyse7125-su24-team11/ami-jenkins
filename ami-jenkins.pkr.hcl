@@ -58,14 +58,15 @@ build {
 
 
 provisioner "file" {
-    source = "./caddyconfig/Caddyfile"
-    destination = "/tmp/Caddyfile"
+    source = "./caddyconfig"
+    destination = "/tmp"
   }
 
 provisioner "file" {
-    source = "./caddyconfig/caddy.service"
-    destination = "/tmp/caddy.service"
+    source = "./jenkins-config"
+    destination = "/tmp"
   }
+
 
 
 provisioner "shell" {
