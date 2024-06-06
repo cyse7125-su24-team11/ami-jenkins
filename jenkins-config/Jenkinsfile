@@ -19,7 +19,7 @@ pipeline {
                     try {
                         sh '''
                         docker login -u ${myuser} -p ${docker_password}
-                        docker build -f ./Dockerfile -t webapp:latest --platform=linux/amd64,darwin/arm64  .
+                        docker build -f ./Dockerfile -t webapp:latest .
                         docker tag webapp:latest maheshpoojaryneu/csye7125:webapp
                         docker push maheshpoojaryneu/csye7125:webapp
                         '''
