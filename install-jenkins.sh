@@ -101,9 +101,9 @@ sudo usermod -a -G docker jenkins
 # Daemon json
 sudo cp /tmp/jenkins-config/daemon.json /etc/docker/daemon.json
 
-
-# Restart Jenkins to apply the plugins
+# Restart Jenkins to apply docker permissions on jenkins user
 sudo systemctl restart jenkins
 
+docker run --privileged --rm tonistiigi/binfmt --install all
 # Restart Docker
 sudo systemctl restart docker
