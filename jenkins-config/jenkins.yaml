@@ -114,19 +114,3 @@ tool:
 jobs:
   - file: ./plugins/job-dsl/job.groovy
 
-
-credentials:
-  system:
-    domainCredentials:
-    - credentials:
-      - usernamePassword:
-          scope: GLOBAL
-          id: "GH_CRED"
-          username: "maheshpoojaryneu"
-          password: ""
-    - credentials:
-      - usernamePassword:
-          scope: GLOBAL
-          id: "DOCKER_CRED"
-          username: "maheshpoojaryneu"
-          password: ""

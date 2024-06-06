@@ -72,15 +72,9 @@ sudo chown jenkins:jenkins /var/lib/jenkins/plugins/job-dsl/job.groovy
 sudo chmod 600 /var/lib/jenkins/plugins/job-dsl/job.groovy
 
 
-sudo cp /tmp/jenkins-config/Jenkinsfile /var/lib/jenkins/plugins/job-dsl/Jenkinsfile
-rm /tmp/jenkins-config/Jenkinsfile
-
 sudo systemctl daemon-reload
 sudo systemctl enable --now caddy
 
-
-# Restart Jenkins to apply the plugins
-sudo systemctl restart jenkins
 
 # Install Docker
 
@@ -98,8 +92,15 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 
+#give permissions to jenkins user to run docker cmds
+sudo usermod -a -G docker jenkins
+
 # Daemon json
 sudo cp /tmp/jenkins-config/daemon.json /etc/docker/daemon.json
-sudo usermod -a -G docker jenkins
+
+# Restart Jenkins to apply docker permissions on jenkins user
+sudo systemctl restart jenkins
+
+docker run --privileged --rm tonistiigi/binfmt --install all
 # Restart Docker
 sudo systemctl restart docker
