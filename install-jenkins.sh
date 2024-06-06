@@ -18,7 +18,7 @@ sudo apt-get -y install jenkins
 sudo systemctl enable jenkins
 
 # Wait for Jenkins to start
-sleep 30
+sleep 20
 
 # Install Jenkins plugins
 export JENKINS_CLI_JAR="/usr/share/jenkins/jenkins-cli.jar"
@@ -31,9 +31,11 @@ sudo wget -O $JENKINS_CLI_JAR http://localhost:8080/jnlpJars/jenkins-cli.jar
 export JENKINS_ADMIN_PASSWORD=$(sudo cat /var/lib/jenkins/secrets/initialAdminPassword)
 
 # Install desired plugins
-sudo java -jar $JENKINS_CLI_JAR -s $JENKINS_URL -auth admin:$JENKINS_ADMIN_PASSWORD install-plugin git github github-api job-dsl:1.87 workflow-job:1426.v2ecb_a_a_42fd46
+sudo java -jar $JENKINS_CLI_JAR -s $JENKINS_URL -auth admin:$JENKINS_ADMIN_PASSWORD install-plugin git github github-api job-dsl workflow-job configuration-as-code credentials
 
+sudo systemctl restart jenkins
 
+sleep 20
 # Install caddy
 
 wget https://github.com/caddyserver/caddy/releases/download/v2.7.6/caddy_2.7.6_linux_amd64.tar.gz -P /tmp
@@ -54,14 +56,21 @@ rm /tmp/caddyconfig/Caddyfile
 sudo cp /tmp/caddyconfig/caddy.service /etc/systemd/system/caddy.service
 rm /tmp/caddyconfig/caddy.service
 
-sudo cp /tmp/jenkins-config/jenkins-config/jenkins.yaml /var/lib/jenkins/jenkins.yaml
+
+sudo cp /tmp/jenkins-config/jenkins.yaml /var/lib/jenkins/jenkins.yaml
 rm /tmp/jenkins-config/jenkins.yaml
+sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
+sudo chmod 600 /var/lib/jenkins/jenkins.yaml
+
 
 sudo cp /tmp/jenkins-config/jenkins.service /etc/systemd/system/jenkins.service
 rm /tmp/jenkins-config/jenkins.service
 
 sudo cp /tmp/jenkins-config/job.groovy /var/lib/jenkins/plugins/job-dsl/job.groovy
 rm /tmp/jenkins-config/job.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/plugins/job-dsl/job.groovy
+sudo chmod 600 /var/lib/jenkins/plugins/job-dsl/job.groovy
+
 
 sudo cp /tmp/jenkins-config/Jenkinsfile /var/lib/jenkins/plugins/job-dsl/Jenkinsfile
 rm /tmp/jenkins-config/Jenkinsfile
@@ -87,3 +96,10 @@ echo \
 sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+
+# Daemon json
+sudo cp /tmp/jenkins-config/daemon.json /etc/docker/daemon.json
+
+# Restart Docker
+sudo systemctl restart docker
