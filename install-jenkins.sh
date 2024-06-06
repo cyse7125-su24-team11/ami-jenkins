@@ -79,9 +79,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now caddy
 
 
-# Restart Jenkins to apply the plugins
-sudo systemctl restart jenkins
-
 # Install Docker
 
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -98,8 +95,15 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 
+#give permissions to jenkins user to run docker cmds
+sudo usermod -a -G docker jenkins
+
 # Daemon json
 sudo cp /tmp/jenkins-config/daemon.json /etc/docker/daemon.json
+
+
+# Restart Jenkins to apply the plugins
+sudo systemctl restart jenkins
 
 # Restart Docker
 sudo systemctl restart docker
