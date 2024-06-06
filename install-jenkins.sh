@@ -100,6 +100,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 # Daemon json
 sudo cp /tmp/jenkins-config/daemon.json /etc/docker/daemon.json
-
+sudo usermod -a -G docker jenkins
 # Restart Docker
 sudo systemctl restart docker
