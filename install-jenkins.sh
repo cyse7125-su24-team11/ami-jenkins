@@ -31,7 +31,7 @@ sudo wget -O $JENKINS_CLI_JAR http://localhost:8080/jnlpJars/jenkins-cli.jar
 export JENKINS_ADMIN_PASSWORD=$(sudo cat /var/lib/jenkins/secrets/initialAdminPassword)
 
 # Install desired plugins
-sudo java -jar $JENKINS_CLI_JAR -s $JENKINS_URL -auth admin:$JENKINS_ADMIN_PASSWORD install-plugin git github github-api job-dsl workflow-job configuration-as-code credentials
+sudo java -jar $JENKINS_CLI_JAR -s $JENKINS_URL -auth admin:$JENKINS_ADMIN_PASSWORD install-plugin git github github-api job-dsl workflow-job configuration-as-code credentials workflow-aggregator
 
 sudo systemctl restart jenkins
 

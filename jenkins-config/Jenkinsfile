@@ -1,12 +1,6 @@
 pipeline {
     agent any
-    environment {
-        myuser = "maheshpoojaryneu"
-        docker_password = credentials('DOCKER_CRED')
-    }
-    triggers {
-        githubPush() // Trigger the job on a GitHub push event
-    }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -19,11 +13,13 @@ pipeline {
         }
         stage('Docker') {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_CRED', usernameVariable: 'myuser', passwordVariable: 'docker_password')]) 
+                {
                 script {
                     try {
                         sh '''
-                        echo ${docker_password} | docker login --username ${myuser} --password-stdin
-                        docker build -f ./Dockerfile -t webapp:latest  .
+                        docker login -u ${myuser} -p ${docker_password}
+                        docker build -f ./Dockerfile -t webapp:latest --platform=linux/amd64,darwin/arm64  .
                         docker tag webapp:latest maheshpoojaryneu/csye7125:webapp
                         docker push maheshpoojaryneu/csye7125:webapp
                         '''
@@ -31,7 +27,9 @@ pipeline {
                         throw e
                     }
                 }
+                }
             }
+            
         }
     }
 }
