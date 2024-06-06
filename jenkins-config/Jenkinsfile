@@ -1,30 +1,36 @@
 pipeline {
-    agent {
-        dockerfile{
-                    'build-agent.Dockerfile'
-                }
-                environment{
-                    myuser="maheshpoojaryneu"
-                    docker_password = credentials('DOCKER_CRED')
-                }
-            }
+    agent any
+    environment {
+        myuser = "maheshpoojaryneu"
+        docker_password = credentials('DOCKER_CRED')
+    }
+    triggers {
+        githubPush() // Trigger the job on a GitHub push event
+    }
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    changelog: false,
+                    credentialsId: 'GH_CRED',
+                    poll: false,
+                    url: 'https://github.com/cyse7125-su24-team11/static-site.git'
+            }
+        }
         stage('Docker') {
             steps {
-                script{
-                    try{
+                script {
+                    try {
                         sh '''
-                        docker login --username ${myuser} --password ${docker_password}
-                        docker build -f Dockerfile -t webapp:latest .
+                        echo ${docker_password} | docker login --username ${myuser} --password-stdin
+                        docker build -f ./Dockerfile -t webapp:latest  .
                         docker tag webapp:latest maheshpoojaryneu/csye7125:webapp
                         docker push maheshpoojaryneu/csye7125:webapp
                         '''
-                    }
-                    catch(Exception e)
-                    {
+                    } catch (Exception e) {
                         throw e
                     }
-               }
+                }
             }
         }
     }

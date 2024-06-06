@@ -55,7 +55,7 @@ Environment="JENKINS_WEBROOT=%C/jenkins/war"
 
 # Arguments for the Jenkins JVM
 Environment="JAVA_OPTS=-Djenkins.install.runSetupWizard=false"
-Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/jenkins.yaml"
+# Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/jenkins.yaml"
 
 
 # IP address to listen on for HTTP requests.

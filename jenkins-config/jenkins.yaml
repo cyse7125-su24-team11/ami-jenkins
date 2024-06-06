@@ -119,14 +119,14 @@ credentials:
   system:
     domainCredentials:
     - credentials:
-      - file:
-        scope: GLOBAL
-        string:
-        id: "GH_CRED"
-        fileName: "/tmp/gitcred.txt"
-
-      - file:
-        id: "DOCKER_CRED"
-        string:
-        fileName: "/tmp/dockercred.txt"
-        scope: GLOBAL
+      - usernamePassword:
+          scope: GLOBAL
+          id: "GH_CRED"
+          username: "maheshpoojaryneu"
+          password: ""
+    - credentials:
+      - usernamePassword:
+          scope: GLOBAL
+          id: "DOCKER_CRED"
+          username: "maheshpoojaryneu"
+          password: ""
