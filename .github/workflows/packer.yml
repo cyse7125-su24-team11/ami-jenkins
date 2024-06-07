@@ -20,6 +20,9 @@ jobs:
       - name: Packer Init
         run: "packer init ./ami-jenkins.pkr.hcl"
       - name: Packer Validate
-        run: "packer validate ./ami-jenkins.pkr.hcl"
+        env:
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: "packer validate -var=GH_TOKEN=\"$GH_TOKEN\" -var=DOCKER_TOKEN=\"$DOCKER_TOKEN\" ./ami-jenkins.pkr.hcl"
         
 
