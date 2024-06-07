@@ -26,6 +26,9 @@ jobs:
       - name: Packer Init
         run: "packer init ./ami-jenkins.pkr.hcl"
       - name: Packer Build
+        env:
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         #if: github.event.pull_request.merged == true
-        run: "packer build ./ami-jenkins.pkr.hcl"
+        run: "packer build -var=GH_TOKEN=\"$GH_TOKEN\" -var=DOCKER_TOKEN=\"$DOCKER_TOKEN\" ./ami-jenkins.pkr.hcl"
         

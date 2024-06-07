@@ -19,10 +19,13 @@ variable "ssh_username" {
   type    = string
   default = "ubuntu"
 }
-
 variable "subnet_id" {
   type    = string
   default = "subnet-0ae4dd4c6b2e5a38d"
+}
+variable "GH_TOKEN" {
+}
+variable "DOCKER_TOKEN" {
 }
 
 
@@ -67,7 +70,13 @@ provisioner "file" {
     destination = "/tmp"
   }
 
-
+provisioner "shell" {
+    environment_vars = [
+      "GH_TOKEN=${var.GH_TOKEN}",
+      "DOCKER_TOKEN=${var.DOCKER_TOKEN}"
+    ]
+    script = "./add-credentials.sh"
+}
 
 provisioner "shell" {
     environment_vars = [

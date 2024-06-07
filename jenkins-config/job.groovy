@@ -15,4 +15,3 @@ pipelineJob('seed') {
         }
     }
 }
-

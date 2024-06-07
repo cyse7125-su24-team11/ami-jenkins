@@ -72,9 +72,6 @@ sudo chown jenkins:jenkins /var/lib/jenkins/plugins/job-dsl/job.groovy
 sudo chmod 600 /var/lib/jenkins/plugins/job-dsl/job.groovy
 
 
-sudo cp /tmp/jenkins-config/Jenkinsfile /var/lib/jenkins/plugins/job-dsl/Jenkinsfile
-rm /tmp/jenkins-config/Jenkinsfile
-
 sudo systemctl daemon-reload
 sudo systemctl enable --now caddy
 
