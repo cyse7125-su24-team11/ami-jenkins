@@ -15,7 +15,6 @@ pipelineJob('Build Static Site') {
         }
     }
 }
-}
 pipelineJob('CI Pipeline Helm Template') {
     description('Seed Pipeline Job')
     definition {
