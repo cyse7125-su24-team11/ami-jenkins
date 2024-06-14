@@ -4,7 +4,13 @@
 
 sudo apt update
 sudo apt -y upgrade
-sudo apt -y install fontconfig openjdk-17-jre
+sudo apt -y install fontconfig openjdk-17-jre gh
+
+
+# Install npm
+
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs npm
 
 # Install Jenkins
 
@@ -31,7 +37,7 @@ sudo wget -O $JENKINS_CLI_JAR http://localhost:8080/jnlpJars/jenkins-cli.jar
 JENKINS_ADMIN_PASSWORD=$(sudo cat /var/lib/jenkins/secrets/initialAdminPassword)
 export JENKINS_ADMIN_PASSWORD
 # Install desired plugins
-sudo java -jar $JENKINS_CLI_JAR -s $JENKINS_URL -auth admin:$JENKINS_ADMIN_PASSWORD install-plugin git github github-api job-dsl workflow-job configuration-as-code credentials workflow-aggregator conventional-commits
+sudo java -jar $JENKINS_CLI_JAR -s $JENKINS_URL -auth admin:$JENKINS_ADMIN_PASSWORD install-plugin git github github-api job-dsl workflow-job configuration-as-code credentials workflow-aggregator conventional-commits github-branch-source
 
 sudo systemctl restart jenkins
 
