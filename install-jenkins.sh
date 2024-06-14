@@ -5,12 +5,11 @@
 sudo apt update
 sudo apt -y upgrade
 sudo apt -y install fontconfig openjdk-17-jre gh
-
+sudo apt-get install aptitude
 
 # Install npm
-
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs npm
+sudo aptitude install -y nodejs npm
 
 # Install Jenkins
 
