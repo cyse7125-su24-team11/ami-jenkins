@@ -10,6 +10,7 @@ sudo apt-get install aptitude
 # Install npm
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo aptitude install -y nodejs npm
+sudo apt-get install nodejs -y
 
 # Install Jenkins
 
@@ -80,6 +81,9 @@ sudo chmod 600 /var/lib/jenkins/plugins/job-dsl/job.groovy
 sudo systemctl daemon-reload
 sudo systemctl enable --now caddy
 
+# Install Terraform 
+
+sudo apt-get install terraform -y
 
 # Install Docker
 
