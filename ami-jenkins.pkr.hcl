@@ -27,7 +27,7 @@ variable "GH_TOKEN" {
 }
 variable "DOCKER_TOKEN" {
 }
-
+variable "PG_CRED" {}
 
 # https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "my-ami" {
@@ -73,7 +73,8 @@ provisioner "file" {
 provisioner "shell" {
     environment_vars = [
       "GH_TOKEN=${var.GH_TOKEN}",
-      "DOCKER_TOKEN=${var.DOCKER_TOKEN}"
+      "DOCKER_TOKEN=${var.DOCKER_TOKEN}",
+      "PG_CRED=${var.PG_CRED}"
     ]
     script = "./add-credentials.sh"
 }
