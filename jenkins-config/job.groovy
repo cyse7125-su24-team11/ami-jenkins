@@ -84,7 +84,7 @@ multibranchPipelineJob('CI Pipeline Helm CVE Processor') {
     }
        factory {
         workflowBranchProjectFactory {
-            scriptPath('postgresql/continousintegration/Jenkinsfile') // Path to the Jenkinsfile in your repository
+            scriptPath('webapp/continousintegration/Jenkinsfile') // Path to the Jenkinsfile in your repository
         }
     }
 }
@@ -100,7 +100,7 @@ multibranchPipelineJob('CD Pipeline Helm CVE Processor') {
     }
     factory {
         workflowBranchProjectFactory {
-            scriptPath('postgresql/continousdeployment/Jenkinsfile') // Path to the Jenkinsfile in your repository
+            scriptPath('webapp/continousdeployment/Jenkinsfile') // Path to the Jenkinsfile in your repository
         }
     }
 }
