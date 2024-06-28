@@ -16,4 +16,10 @@ credentials:
           id: \"DOCKER_CRED\"
           username: \"maheshpoojaryneu\"
           password: \"${DOCKER_TOKEN}\"
+    - credentials:
+      - usernamePassword:
+          scope: GLOBAL
+          id: \"PG_CRED\"
+          username: \"postgres\"
+          password: \"${PG_CRED}\"
 " >> /tmp/jenkins-config/jenkins.yaml
