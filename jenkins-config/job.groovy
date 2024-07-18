@@ -141,7 +141,7 @@ multibranchPipelineJob('CD Pipeline Helm CVE Consumer') {
 }
 
 multibranchPipelineJob('CI Pipeline Helm Cluster AutoScaler') {
-    description('Multibranch Pipeline Job for Helm Release CD')
+    description('Multibranch Pipeline Job for Helm Release CI')
     branchSources {
         git {
             id('helm-eks-autoscaler-ci-git') // Unique identifier for this branch source
