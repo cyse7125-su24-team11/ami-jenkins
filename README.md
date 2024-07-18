@@ -92,6 +92,10 @@ git pull origin main --rebase
 git push origin assignment6 -f
 git stash apply
 
+git add .
+git commit -m "feat: "
+git push origin assignment
+
 ###  Git clone
 git clone git@github.com:cyse7125-su24-team11/helm-webapp-cve-processor.git
 git clone git@github.com:cyse7125-su24-team11/webapp-cve-processor.git
