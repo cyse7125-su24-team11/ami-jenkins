@@ -77,3 +77,25 @@ The install-jenkins.sh script performs the following steps:
 - Installing Packer.
 - Setting AWS credentials.
 - Initializing and running the Packer build process
+
+
+### Sync Git
+
+git stash
+git checkout main
+git pull upstream main
+git push origin main
+
+
+git checkout assignment6
+git pull origin main --rebase
+git push origin assignment6 -f
+git stash apply
+
+###  Git clone
+git clone git@github.com:cyse7125-su24-team11/helm-webapp-cve-processor.git
+git clone git@github.com:cyse7125-su24-team11/webapp-cve-processor.git
+git clone git@github.com:cyse7125-su24-team11/ami-jenkins.git
+git clone git@github.com:cyse7125-su24-team11/infra-jenkins.git
+git clone git@github.com:cyse7125-su24-team11/static-site.git
+git clone git@github.com:cyse7125-su24-team11/k8s-yaml-manifests.git

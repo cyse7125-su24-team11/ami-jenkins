@@ -139,3 +139,35 @@ multibranchPipelineJob('CD Pipeline Helm CVE Consumer') {
         }
     }
 }
+
+multibranchPipelineJob('CD Pipeline Helm Cluster AutoScaler') {
+    description('Multibranch Pipeline Job for Helm Release CD')
+    branchSources {
+        git {
+            id('helm-eks-autoscaler-ci-git') // Unique identifier for this branch source
+            remote('https://github.com/cyse7125-su24-team11/helm-eks-autoscaler.git')
+            credentialsId('GH_CRED') // Specify your GitHub credentials ID
+        }
+    }
+    factory {
+        workflowBranchProjectFactory {
+            scriptPath('continousintegration/Jenkinsfile') // Path to the Jenkinsfile in your repository
+        }
+    }
+}
+
+multibranchPipelineJob('CD Pipeline Helm Cluster AutoScaler') {
+    description('Multibranch Pipeline Job for Helm Release CD')
+    branchSources {
+        git {
+            id('helm-eks-autoscaler-cd-git') // Unique identifier for this branch source
+            remote('https://github.com/cyse7125-su24-team11/helm-eks-autoscaler.git')
+            credentialsId('GH_CRED') // Specify your GitHub credentials ID
+        }
+    }
+    factory {
+        workflowBranchProjectFactory {
+            scriptPath('continousdeployment/Jenkinsfile') // Path to the Jenkinsfile in your repository
+        }
+    }
+}
