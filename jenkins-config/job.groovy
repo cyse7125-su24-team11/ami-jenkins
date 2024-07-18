@@ -140,7 +140,7 @@ multibranchPipelineJob('CD Pipeline Helm CVE Consumer') {
     }
 }
 
-multibranchPipelineJob('CD Pipeline Helm Cluster AutoScaler') {
+multibranchPipelineJob('CI Pipeline Helm Cluster AutoScaler') {
     description('Multibranch Pipeline Job for Helm Release CD')
     branchSources {
         git {
