@@ -16,6 +16,12 @@ pipelineJob('Build Static Site') {
     }
 }
 
+
+//                                                                      //
+//---------------------------AWS Infrastructure-------------------------//
+//                                                                      //
+
+
 pipelineJob('CI Terraform Infra AWS') {
     definition {
         cpsScm {
@@ -34,22 +40,9 @@ pipelineJob('CI Terraform Infra AWS') {
 }
 
 
-pipelineJob('Build Processor Container Images') {
-    definition {
-        cpsScm {
-            scriptPath('./Jenkinsfile') // Reference the Jenkinsfile in your SCM
-            scm {
-                git {
-                    remote {
-                        url('https://github.com/cyse7125-su24-team11/webapp-cve-processor.git')
-                        credentials('GH_CRED') // Specify your GitHub credentials ID
-                    }
-                    branch('main') // Specify the branch you want to build
-                }
-            }
-        }
-    }
-}
+//                                                                      //
+//---------------------------CVE Processor------------------------------//
+//                                                                      //
 
 
 
@@ -105,6 +98,27 @@ multibranchPipelineJob('CD Pipeline Helm CVE Processor') {
     }
 }
 
+//                                                                      //
+//---------------------------CVE Consumer-------------------------------//
+//                                                                      //
+
+pipelineJob('Build Processor Container Images') {
+    definition {
+        cpsScm {
+            scriptPath('./Jenkinsfile') // Reference the Jenkinsfile in your SCM
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/cyse7125-su24-team11/webapp-cve-processor.git')
+                        credentials('GH_CRED') // Specify your GitHub credentials ID
+                    }
+                    branch('main') // Specify the branch you want to build
+                }
+            }
+        }
+    }
+}
+
 
 multibranchPipelineJob('CI Pipeline Helm CVE Consumer') {
     description('Multibranch Pipeline Job for Helm Template CI')
@@ -140,6 +154,10 @@ multibranchPipelineJob('CD Pipeline Helm CVE Consumer') {
     }
 }
 
+//                                                                      //
+//---------------------------EKS AutoScaler-------------------------------//
+//                                                                      //
+
 multibranchPipelineJob('CI Pipeline Helm Cluster AutoScaler') {
     description('Multibranch Pipeline Job for Helm Release CI')
     branchSources {
@@ -162,6 +180,59 @@ multibranchPipelineJob('CD Pipeline Helm Cluster AutoScaler') {
         git {
             id('helm-eks-autoscaler-cd-git') // Unique identifier for this branch source
             remote('https://github.com/cyse7125-su24-team11/helm-eks-autoscaler.git')
+            credentialsId('GH_CRED') // Specify your GitHub credentials ID
+        }
+    }
+    factory {
+        workflowBranchProjectFactory {
+            scriptPath('continousdeployment/Jenkinsfile') // Path to the Jenkinsfile in your repository
+        }
+    }
+}
+
+
+//                                                                      //
+//---------------------------CVE Operator-------------------------------//
+//                                                                      //
+
+multibranchPipelineJob('Build CVE Operator Container Images') {
+    description('Multibranch Pipeline Job for CVE Operator')
+    branchSources {
+        git {
+            id('helm-operator-build-git') // Unique identifier for this branch source
+            remote('https://github.com/cyse7125-su24-team11/cve-operator.git')
+            credentialsId('GH_CRED') // Specify your GitHub credentials ID
+        }
+    }
+    factory {
+        workflowBranchProjectFactory {
+            scriptPath('./Jenkinsfile') // Path to the Jenkinsfile in your repository
+        }
+    }
+}
+
+multibranchPipelineJob('CI Pipeline Helm CVE Operator') {
+    description('Multibranch Pipeline Job for Helm CVE Operator CI')
+    branchSources {
+        git {
+            id('helm-operator-ci-git') // Unique identifier for this branch source
+            remote('https://github.com/cyse7125-su24-team11/helm-cve-operator.git')
+            credentialsId('GH_CRED') // Specify your GitHub credentials ID
+        }
+    }
+    factory {
+        workflowBranchProjectFactory {
+            scriptPath('continousintegration/Jenkinsfile') // Path to the Jenkinsfile in your repository
+        }
+    }
+}
+
+multibranchPipelineJob('CD Pipeline Helm CVE Operator') {
+    description('Multibranch Pipeline Job for Helm CVE Operator CD')
+    branchSources {
+        git {
+            id('helm-operator-cd-git') // Unique identifier for this branch source
+            remote('https://github.com/cyse7125-su24-team11/helm-cve-operator.git')
             credentialsId('GH_CRED') // Specify your GitHub credentials ID
         }
     }
