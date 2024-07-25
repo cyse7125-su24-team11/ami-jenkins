@@ -87,14 +87,14 @@ git pull upstream main
 git push origin main
 
 
-git checkout assignment6
+git checkout assignment7
 git pull origin main --rebase
-git push origin assignment6 -f
+git push origin assignment7 -f
 git stash apply
 
 git add .
 git commit -m "feat: "
-git push origin assignment
+git push origin assignment7
 
 ###  Git clone
 git clone git@github.com:cyse7125-su24-team11/helm-webapp-cve-processor.git
