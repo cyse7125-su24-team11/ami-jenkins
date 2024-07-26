@@ -206,7 +206,7 @@ multibranchPipelineJob('Build CVE Operator Container Images') {
     }
     factory {
         workflowBranchProjectFactory {
-            scriptPath('./Jenkinsfile') // Path to the Jenkinsfile in your repository
+            scriptPath('Jenkinsfile') // Path to the Jenkinsfile in your repository
         }
     }
 }
